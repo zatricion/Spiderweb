@@ -13,6 +13,10 @@ app.redis = redis.StrictRedis(host=os.getenv('WERCKER_REDIS_HOST', 'localhost'),
 
 # app.config.from_object('config.Configuration')
 
+@app.route("/")
+def home():
+    return "hello, world"
+
 @app.route("/clouds.json")
 def clouds():
     data = app.redis.lrange("clouds", 0, -1)
