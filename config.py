@@ -9,6 +9,7 @@ class Configuration(object):
         'engine': 'peewee.PostgresqlDatabase',
         'name': os.environ['WERCKER_POSTGRESQL_DATABASE'],
         'user': os.environ['WERCKER_POSTGRESQL_USERNAME'],
+        'password': os.environ['WERCKER_POSTGRESQL_PASSWORD'],
         'host': os.environ['WERCKER_POSTGRESQL_HOST'],
         'port': int(os.environ['WERCKER_POSTGRESQL_PORT']),
         }
