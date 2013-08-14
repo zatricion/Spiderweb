@@ -27,6 +27,7 @@ class CloudTestCase(unittest.TestCase):
         tester = app.test_client(self)
         response = tester.get('/clouds.json', content_type='application/json')
         
+        print response
         self.assertEqual(response.status_code, 200)
         print response.data
 
