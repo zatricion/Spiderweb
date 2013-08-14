@@ -27,6 +27,6 @@ def serve():
 
 @app.route("/clouds.json")
 def clouds():
-    data = app.redis.lrange("clouds", 0, -1)
-    resp = Response(json.dumps(data), status=200, mimetype='application/json')
+    data = Connections.get(Connections.from == "hi")
+    resp = Response(json.dumps(data.to), status=200, mimetype='application/json')
     return resp

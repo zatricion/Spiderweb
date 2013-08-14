@@ -7,6 +7,7 @@ from peewee import *
 
 from app import db
 
-class Connections(db.Model):
-    search_url = CharField()  
-    find_url = CharField()
+class Connection(db.Model):
+    from = CharField()  
+    to = CharField()
+    count = IntegerField()
