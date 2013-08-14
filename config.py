@@ -2,9 +2,6 @@ import os
 
 import urlparse
 
-urlparse.uses_netloc.append('postgres')
-url = urlparse.urlparse(os.environ['DATABASE_URL'])
-
 class Configuration(object):  
 
   if 'WERCKER_POSTGRESQL_HOST' in os.environ:
@@ -17,6 +14,9 @@ class Configuration(object):
         }
 
   elif 'DATABASE_URL' in os.environ:
+    urlparse.uses_netloc.append('postgres')
+    url = urlparse.urlparse(os.environ['DATABASE_URL'])
+
     DATABASE = {
         'engine': 'peewee.PostgresqlDatabase',
         'name': url.path[1:],
