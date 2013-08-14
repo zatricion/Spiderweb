@@ -14,9 +14,9 @@ class Configuration(object):
         'port': int(os.environ['WERCKER_POSTGRESQL_PORT']),
         }
 
-  elif os.environ.has_key('HEROKU_POSTGRESQL_NAVY_URL'):
+  elif os.environ.has_key('DATABASE_URL'):
     urlparse.uses_netloc.append('postgres')
-    url = urlparse.urlparse(os.environ['HEROKU_POSTGRESQL_NAVY_URL'])
+    url = urlparse.urlparse(os.environ['DATABASE_URL'])
 
     DATABASE = {
         'engine': 'peewee.PostgresqlDatabase',
