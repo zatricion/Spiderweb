@@ -17,7 +17,7 @@ class CloudTestCase(unittest.TestCase):
           r = Connection(from_url = url1, to_url = url2, count = 1)
       r.save()
 
-    def tearDown(self)
+    def tearDown(self):
         q = Connection.delete()
         q.execute()
 
