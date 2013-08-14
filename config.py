@@ -4,7 +4,7 @@ import urlparse
 
 class Configuration(object):  
 
-  if 'WERCKER_POSTGRESQL_HOST' in os.environ:
+  if os.environ.has_key('WERCKER_POSTGRESQL_HOST'):
     DATABASE = {
         'engine': 'peewee.PostgresqlDatabase',
         'name': os.environ['WERCKER_POSTGRESQL_DATABASE'],
@@ -14,9 +14,9 @@ class Configuration(object):
         'port': int(os.environ['WERCKER_POSTGRESQL_PORT']),
         }
 
-  elif 'DATABASE_URL' in os.environ:
+  elif os.environ.has_key('HEROKU_POSTGRESQL_NAVY_URL'):
     urlparse.uses_netloc.append('postgres')
-    url = urlparse.urlparse(os.environ['DATABASE_URL'])
+    url = urlparse.urlparse(os.environ['HEROKU_POSTGRESQL_NAVY_URL'])
 
     DATABASE = {
         'engine': 'peewee.PostgresqlDatabase',
@@ -32,6 +32,5 @@ class Configuration(object):
         'engine': 'peewee.MySQLDatabase',
         'user': 'root',
         'host': 'localhost'
-
         }
   DEBUG = True
