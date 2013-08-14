@@ -8,7 +8,7 @@ class Configuration(object):
                 'name': 'spiderweb',
                 'user': os.environ['WERCKER_MYSQL_USERNAME'],
                 'host': os.environ['WERCKER_MYSQL_HOST'],
-                'port': os.environ['WERCKER_MYSQL_PORT'],
+                'port': int(os.environ['WERCKER_MYSQL_PORT']),
         }
     else:
       DATABASE = {
