@@ -1,21 +1,36 @@
 import os
 
+import urlparse
+
+urlparse.uses_netloc.append('postgres')
+url = urlparse.urlparse(os.environ['DATABASE_URL'])
+
 class Configuration(object):  
-    
-    if 'WERCKER_MYSQL_HOST' in os.environ:
-        DATABASE = {
-                'engine': 'peewee.MySQLDatabase',
-                'name': os.environ['WERCKER_MYSQL_DATABASE'],
-                'user': os.environ['WERCKER_MYSQL_USERNAME'],
-                'host': os.environ['WERCKER_MYSQL_HOST'],
-                'port': int(os.environ['WERCKER_MYSQL_PORT']),
+
+  if 'WERCKER_POSTGRESQL_HOST' in os.environ:
+    DATABASE = {
+        'engine': 'peewee.PostgresqlDatabase',
+        'name': os.environ['WERCKER_POSTGRESQL_DATABASE'],
+        'user': os.environ['WERCKER_POSTGRESQL_USERNAME'],
+        'host': os.environ['WERCKER_POSTGRESQL_HOST'],
+        'port': int(os.environ['WERCKER_POSTGRESQL_PORT']),
         }
-    else:
-      DATABASE = {
+
+  elif 'DATABASE_URL' in os.environ:
+    DATABASE = {
+        'engine': 'peewee.PostgresqlDatabase',
+        'name': url.path[1:],
+        'password': url.password,
+        'host': url.hostname,
+        'port': url.port,
+        }
+
+  else:
+    DATABASE = {
         'name': 'spiderweb',
         'engine': 'peewee.MySQLDatabase',
         'user': 'root',
         'host': 'localhost'
 
-      }
+        }
     DEBUG = True

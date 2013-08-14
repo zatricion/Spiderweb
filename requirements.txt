@@ -8,5 +8,6 @@ flask-peewee==0.6.5
 gunicorn==17.5
 itsdangerous==0.23
 peewee==2.1.4
+psycopg2==2.5.1
 wsgiref==0.1.2
 wtf-peewee==0.2.2
