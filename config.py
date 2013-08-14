@@ -7,7 +7,6 @@ class Configuration(object):
                 'engine': 'peewee.MySQLDatabase',
                 'name': 'spiderweb',
                 'user': os.environ['WERCKER_MYSQL_USERNAME'],
-                'passwd': os.environ['WERCKER_MYSQL_PASSWORD'],
                 'host': os.environ['WERCKER_MYSQL_HOST'],
                 'port': os.environ['WERCKER_MYSQL_PORT'],
         }
