@@ -5,6 +5,7 @@ MySQL-python==1.2.4
 WTForms==1.0.4
 Werkzeug==0.9.3
 flask-peewee==0.6.5
+gunicorn==17.5
 itsdangerous==0.23
 peewee==2.1.4
 wsgiref==0.1.2

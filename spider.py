@@ -11,7 +11,6 @@ from app import db
 from app import app
 from models import *
 from views import *
-from scripts import setup
 
 if __name__ == "__main__":
     port = int(os.getenv('PORT', 5000))

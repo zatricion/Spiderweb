@@ -19,4 +19,4 @@ class Configuration(object):
         'host': 'localhost'
 
       }
-    DEBUG = False
+    DEBUG = True
