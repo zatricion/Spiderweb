@@ -8,6 +8,6 @@ from peewee import *
 from app import db
 
 class Connection(db.Model):
-    from = CharField()  
-    to = CharField()
+    from_url = CharField()  
+    to_url = CharField()
     count = IntegerField()

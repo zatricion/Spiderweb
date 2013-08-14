@@ -11,10 +11,10 @@ class CloudTestCase(unittest.TestCase):
       url1 = "hi"
       url2 = "bye"
       try:
-          r = Connection.get(Connection.from == url1, Connection.to == url2)
+          r = Connection.get(Connection.from_url == url1, Connection.to_url == url2)
           r.count += 1
       except Connection.DoesNotExist:
-          r = Connection(from = url1, to = url2, count = 1)
+          r = Connection(from_url = url1, to_url = url2, count = 1)
       r.save()
 
     def tearDown(self)
