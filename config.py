@@ -34,4 +34,4 @@ class Configuration(object):
         'host': 'localhost'
 
         }
-    DEBUG = True
+  DEBUG = True
