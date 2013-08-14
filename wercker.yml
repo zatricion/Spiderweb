@@ -1,6 +1,6 @@
 box: wercker/python
 services:
-  - wercker/redis
+  - wercker/mysql
 build:
   steps:
     - pip-install
