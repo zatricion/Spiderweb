@@ -11,14 +11,14 @@ class CloudTestCase(unittest.TestCase):
       url1 = "hi"
       url2 = "bye"
       try:
-          r = Connections.get(Connections.from == url1, Connections.to == url2)
+          r = Connection.get(Connection.from == url1, Connection.to == url2)
           r.count += 1
-      except Connections.DoesNotExist:
-          r = Connections(from = url1, to = url2, count = 1)
+      except Connection.DoesNotExist:
+          r = Connection(from = url1, to = url2, count = 1)
       r.save()
 
     def tearDown(self)
-        q = Connections.delete()
+        q = Connection.delete()
         q.execute()
 
     def test_clouds(self):
