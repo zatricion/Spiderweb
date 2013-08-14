@@ -6,4 +6,4 @@ build:
     - pip-install
     - script:
           name: flask tests
-          code: python -c "print okay"
+          code: python -c "print 1+1"
