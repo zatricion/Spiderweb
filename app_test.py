@@ -1,4 +1,4 @@
-from app import app
+from spider import app
 from models import Connection
 
 import os
@@ -25,11 +25,10 @@ class CloudTestCase(unittest.TestCase):
 
     def test_clouds(self):
         tester = app.test_client(self)
-        response = tester.get('/')
+        response = tester.get('/clouds.json')
         
-        print response
         self.assertEqual(response.status_code, 200)
-        print response.data
+        self.assertEqual(response.data, json.dumps(["bye", 1]))
 
 if __name__ == "__main__":
     unittest.main()

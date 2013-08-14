@@ -12,7 +12,7 @@ class Configuration(object):
         }
     else:
       DATABASE = {
-        'name': 'nucaptcha',
+        'name': 'spiderweb',
         'engine': 'peewee.MySQLDatabase',
         'user': 'root',
         'host': 'localhost'
