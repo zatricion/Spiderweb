@@ -9,7 +9,7 @@ from flask import Response
 from flask import json
 from flask import request
 
-from models import Connections
+from models import Connection
 
 
 @app.route("/", methods=['GET'])
@@ -27,6 +27,6 @@ def serve():
 
 @app.route("/clouds.json")
 def clouds():
-    data = Connections.get(Connections.from == "hi")
+    data = Connection.get(Connection.from_url == "hi")
     resp = Response(json.dumps(data.to), status=200, mimetype='application/json')
-    return resp
+    return res  

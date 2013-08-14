@@ -10,6 +10,8 @@ class CloudTestCase(unittest.TestCase):
     def setUp(self):
       url1 = "hi"
       url2 = "bye"
+
+      Connection.create_table(True)
       try:
           r = Connection.get(Connection.from_url == url1, Connection.to_url == url2)
           r.count += 1
