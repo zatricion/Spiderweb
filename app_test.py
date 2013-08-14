@@ -1,5 +1,5 @@
 from app import app
-from app import db
+from models import Connection
 
 import os
 import unittest
