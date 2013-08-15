@@ -24,6 +24,8 @@ def serve():
         return "cool search, bro"
     elif rtype == "new_pathmark":
         return "added some info"
+    else:
+      return Response("hi", status=200, mimetype='application/json')
 
 @app.route("/clouds.json")
 def clouds():
