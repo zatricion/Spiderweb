@@ -18,7 +18,7 @@ def home():
 
 @app.route("/", methods=['POST'])
 def serve():
-    req = request.form
+    req = request.data
     rtype = req.get('type', None)
     if rtype == "search":
         return "cool search, bro"
