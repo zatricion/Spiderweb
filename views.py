@@ -19,20 +19,16 @@ def home():
 @app.route("/", methods=['POST'])
 def serve():
     req = request.data
-    rtype = req.get('type', None)
-    if rtype == "search":
-        return "cool search, bro"
-    else:
-        link_dict = demjson.decode(req)
-        for to_url in link_dict:
-            from_arr = link_dict[link][0]['in_node']
-            for from_url in from_arr:
-                try:
-                    r = Connection.get(Connection.from_url == from_url, Connection.to_url == to_url)
-                    r.count += 1
-                except Connection.DoesNotExist:
-                    r = Connection(from_url = from_url, to_url = to_url, count = 1)
-                r.save()
+    link_dict = demjson.decode(req)
+    for to_url in link_dict:
+        from_arr = link_dict[to_url][0]['in_node']
+        for from_url in from_arr:
+            try:
+                r = Connection.get(Connection.from_url == from_url, Connection.to_url == to_url)
+                r.count += 1
+            except Connection.DoesNotExist:
+                r = Connection(from_url = from_url, to_url = to_url, count = 1)
+            r.save()
 
 @app.route("/clouds.json")
 def clouds():

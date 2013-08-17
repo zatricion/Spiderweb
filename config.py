@@ -30,8 +30,6 @@ class Configuration(object):
   else:
     DATABASE = {
         'name': 'spiderweb',
-        'engine': 'peewee.MySQLDatabase',
-        'user': 'root',
-        'host': 'localhost'
+        'engine': 'peewee.PostgresqlDatabase',
         }
   DEBUG = True
