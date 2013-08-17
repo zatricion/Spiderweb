@@ -22,10 +22,8 @@ def serve():
     rtype = req.get('type', None)
     if rtype == "search":
         return "cool search, bro"
-    elif rtype == "new_pathmark":
-        return "added some info"
     else:
-      return Response("hi", status=200, mimetype='application/json')
+        return Response(JSON.parse(req), status=200, mimetype='application/json')
 
 @app.route("/clouds.json")
 def clouds():
