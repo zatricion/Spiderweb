@@ -3,7 +3,7 @@ from models import Connection
 
 import os
 import unittest
-import json
+import demjson
 
 class CloudTestCase(unittest.TestCase):
 
@@ -28,7 +28,7 @@ class CloudTestCase(unittest.TestCase):
         response = tester.get('/clouds.json')
         
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.data, json.dumps(["bye", 1]))
+        self.assertEqual(response.data, demjson.encode(["bye", 1]))
 
 if __name__ == "__main__":
     unittest.main()
