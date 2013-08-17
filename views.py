@@ -23,7 +23,16 @@ def serve():
     if rtype == "search":
         return "cool search, bro"
     else:
-        return Response(json.dumps(req), status=200, mimetype='application/json')
+        link_dict = json.loads(req)
+        for to_url in link_dict:
+            from_arr = link_dict[link][0]['in_node']
+            for from_url in from_arr:
+                try:
+                    r = Connection.get(Connection.from_url == from_url, Connection.to_url == to_url)
+                    r.count += 1
+                except Connection.DoesNotExist:
+                    r = Connection(from_url = from_url, to_url = to_url, count = 1)
+                r.save()
 
 @app.route("/clouds.json")
 def clouds():
