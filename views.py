@@ -1,12 +1,12 @@
 """
 views imports app, auth, and models, but none of these import views
 """
+import demjson
 
 from app import app
 
 from flask import Flask
 from flask import Response
-from flask import json
 from flask import request
 
 from models import Connection
@@ -23,7 +23,7 @@ def serve():
     if rtype == "search":
         return "cool search, bro"
     else:
-        link_dict = json.loads(req)
+        link_dict = demjson.decode(req)
         for to_url in link_dict:
             from_arr = link_dict[link][0]['in_node']
             for from_url in from_arr:
