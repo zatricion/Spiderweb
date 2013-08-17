@@ -23,7 +23,7 @@ def serve():
     if rtype == "search":
         return "cool search, bro"
     else:
-        return Response(JSON.parse(req), status=200, mimetype='application/json')
+        return Response(json.parse(req), status=200, mimetype='application/json')
 
 @app.route("/clouds.json")
 def clouds():
