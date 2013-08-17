@@ -8,7 +8,7 @@ from app import app
 from flask import Flask
 from flask import Response
 from flask import request
-
+import json
 from models import Connection
 
 
@@ -16,20 +16,17 @@ from models import Connection
 def home():
     return "hello, world"
 
-@app.route("/", methods=['POST'])
+@app.route("/add_mark", methods=['POST'])
 def serve():
-    req = request.data
-    #link_dict = demjson.decode(req)
-    #for to_url in link_dict:
-    #    from_url = link_dict[to_url][0]['in_node']
-    #    try:
-    #        r = Connection.get(Connection.from_url == from_url, Connection.to_url == to_url)
-    #        r.count += 1
-    #    except Connection.DoesNotExist:
-    #        r = Connection(from_url = from_url, to_url = to_url, count = 1)
-    #    r.save()
-    resp = Response(req, status=200, mimetype='application/json')
-    return resp
+    link_dict = demjson.decode(request.data)
+    for to_url in link_dict:
+        from_url = link_dict[to_url][0]['in_node']
+        try:
+            r = Connection.get(Connection.from_url == from_url, Connection.to_url == to_url)
+            r.count += 1
+        except Connection.DoesNotExist:
+            r = Connection(from_url = from_url, to_url = to_url, count = 1)
+        r.save()
 
 @app.route("/clouds.json")
 def clouds():

@@ -3,3 +3,5 @@
 spy
 *.pyc
 *.swp
+.*.swo
+.*.swp
