@@ -18,7 +18,7 @@ def home():
 
 @app.route("/add_mark", methods=['POST'])
 def serve():
-    link_dict = request.form
+    link_dict = demjson.decode(request.stream.read())
     for to_url in link_dict:
         from_url = link_dict[to_url][0]['in_node']
         try:
