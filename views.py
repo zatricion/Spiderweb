@@ -19,7 +19,7 @@ def home():
 @app.route("/add_mark", methods=['POST'])
 def serve():
 
-    resp = Response(request.data, status=200, mimetype='application/json')
+    resp = Response(demjson.encode(request.form), status=200, mimetype='application/json')
     return resp
 
 @app.route("/clouds.json")
