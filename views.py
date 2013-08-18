@@ -18,16 +18,8 @@ def home():
 
 @app.route("/add_mark", methods=['POST'])
 def serve():
-    link_dict = demjson.decode(request.data)
-    for to_url in link_dict:
-        from_url = link_dict[to_url][0]['in_node']
-        try:
-            r = Connection.get(Connection.from_url == from_url, Connection.to_url == to_url)
-            r.count += 1
-        except Connection.DoesNotExist:
-            r = Connection(from_url = from_url, to_url = to_url, count = 1)
-        r.save()
-    resp = Response(status=200, mimetype='application/json')
+
+    resp = Response(request.data, status=200, mimetype='application/json')
     return resp
 
 @app.route("/clouds.json")
