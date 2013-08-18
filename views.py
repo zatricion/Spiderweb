@@ -27,6 +27,8 @@ def serve():
         except Connection.DoesNotExist:
             r = Connection(from_url = from_url, to_url = to_url, count = 1)
         r.save()
+    resp = Response(status=200, mimetype='application/json')
+    return resp
 
 @app.route("/clouds.json")
 def clouds():
