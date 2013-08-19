@@ -31,8 +31,3 @@ def serve():
     resp = Response(status=200, mimetype='application/json')
     return resp
 
-@app.route("/clouds.json")
-def clouds():
-    data = Connection.get(Connection.from_url == "hi")
-    resp = Response(demjson.encode([data.to_url, data.count]), status=200, mimetype='application/json')
-    return resp
