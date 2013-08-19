@@ -8,7 +8,6 @@ from app import app
 from flask import Flask
 from flask import Response
 from flask import request
-import json
 from models import Connection
 
 
@@ -18,6 +17,8 @@ def home():
 
 @app.route("/add_mark", methods=['POST'])
 def serve():
+    Connection.create_table(fail_silently=True)
+
     link_dict = demjson.decode(request.stream.read())
     for to_url in link_dict:
         from_url = link_dict[to_url][0]['in_node']
