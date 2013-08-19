@@ -9,7 +9,7 @@ import os
 
 from app import db
 from app import app
-from models import *
+from models import Connection
 from views import *
 
 if __name__ == "__main__":
