@@ -17,7 +17,7 @@ class CloudTestCase(unittest.TestCase):
     def test_clouds(self):
         tester = app.test_client(self)
         
-        req = {"//en.wikipedia.org/wiki/Thuringia":[{"in_node":"//en.wikipedia.org/wiki/Wartburg","timestamp":1376896096967}],"//en.wikipedia.org/wiki/Wartburg":[{"in_node":"//en.wikipedia.org/wiki/Frederick_II,_Margrave_of_Meissen","timestamp":1376895634637}],"//en.wikipedia.org/wiki/Frederick_II,_Margrave_of_Meissen":[{"in_node":"//en.wikipedia.org/wiki/Elisabeth_of_Meissen","timestamp":1376895632684}],"//en.wikipedia.org/wiki/Elisabeth_of_Meissen":[{"in_node":"","timestamp":1376895596200}]} 
+        req = "{"//en.wikipedia.org/wiki/Thuringia":[{"in_node":"//en.wikipedia.org/wiki/Wartburg","timestamp":1376896096967}],"//en.wikipedia.org/wiki/Wartburg":[{"in_node":"//en.wikipedia.org/wiki/Frederick_II,_Margrave_of_Meissen","timestamp":1376895634637}],"//en.wikipedia.org/wiki/Frederick_II,_Margrave_of_Meissen":[{"in_node":"//en.wikipedia.org/wiki/Elisabeth_of_Meissen","timestamp":1376895632684}],"//en.wikipedia.org/wiki/Elisabeth_of_Meissen":[{"in_node":"","timestamp":1376895596200}]}" 
 
         response = tester.post('/add_mark', req)          
 
