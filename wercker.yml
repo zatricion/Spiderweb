@@ -4,6 +4,4 @@ services:
 build:
   steps:
     - pip-install
-    - script:
-          name: flask tests
-          code: python app_test.py
+
