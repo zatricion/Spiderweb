@@ -13,7 +13,6 @@ colorama==0.2.5
 demjson==1.6
 docutils==0.11
 flask-peewee==0.6.5
-git-remote-helpers==0.1.0
 gunicorn==17.5
 itsdangerous==0.23
 jmespath==0.0.2
