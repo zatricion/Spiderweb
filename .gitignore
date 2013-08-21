@@ -1,6 +1,6 @@
 .Python
 .wercker
-spy
+venv
 *.pyc
 *.swp
 .*.swo
