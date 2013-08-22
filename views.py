@@ -55,13 +55,13 @@ def get_bubbles(url):
 def node_distances(node, wDist=0):
     for child in get_children(node):
         wDist += child.weight
-        if not child.is_leaf:
+        if not child.is_leaf():
             for each in node_distances(child, wDist):
                 yield each
         yield child.url, wDist
   
 def weighted_node_distances(rootNode):
-    rNode = Node(rootNode, 0)
+    rNode = Node(rootNode, 1)
     distances = dict(node_distances(rNode))
     return demjson.encode(distances)
 
@@ -74,12 +74,12 @@ def get_children(node):
       
       # Populate children list
       # Get children from 'incoming' links
-      incoming = Connection.select(Connection.to_url == url)
-      left_children = [Node(n.url, n.count) for n in incoming]
+      incoming = Connection.select().where(Connection.to_url == url)
+      left_children = [Node(n.from_url, n.count) for n in incoming]
 
       # Get children from 'outgoing' links
-      outgoing = Connection.select(Connection.from_url == url)
-      right_children = [Node(n.url, n.count) for n in outgoing] 
+      outgoing = Connection.select().where(Connection.from_url == url)
+      right_children = [Node(n.to_url, n.count) for n in outgoing] 
       
       return left_children + right_children
  
@@ -88,6 +88,6 @@ class Node:
     def __init__(self, url, count):
         self.url = url
         self.weight = (1.0 / count)
-            
-        def is_leaf(self):
-            return bool(get_children(self))
+        
+    def is_leaf(self):
+        return bool(get_children(self))
