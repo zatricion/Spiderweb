@@ -52,16 +52,16 @@ def get_bubbles(url):
     pass
 
 # wDist is the weighted distance (accumulates edge weights)
-def node_distances(node, wDist, seen):
+def get_distances(node, wDist, seen):
+    wDist += node.weight
     for child in get_children(node, seen):
-        wDist += child.weight
-        for each in node_distances(child, wDist, seen):
+        for each in get_distances(child, wDist, seen):
             yield each
-        yield child.url, wDist
+        yield child.url, wDist + child.weight
   
 def weighted_node_distances(rootNode):
-    rNode = Node(rootNode, 1)
-    distances = dict(node_distances(rNode, wDist=0, seen=[]))
+    rNode = Node(rootNode, 0)
+    distances = dict(get_distances(rNode, wDist=0, seen=[]))
     return demjson.encode(distances)
 
 # get the children of a node from its url (don't include already seen db entries)
@@ -93,4 +93,4 @@ def get_children(node, seen):
 class Node:
     def __init__(self, url, count):
         self.url = url
-        self.weight = (1.0 / count)
+        self.weight = (1.0 / count) if count != 0 else count
