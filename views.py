@@ -26,9 +26,9 @@ def home():
 def bubbles():
     req = request.form
     word = req.get('word', None)
-    node_list = get_bubbles(word)
+    node_list = weighted_node_distances(word)
     return node_list
-  #return render_template('bubbles.html', nodes=node_list)
+    #return render_template('bubbles.html', nodes=node_list)
 
 @app.route("/add_mark", methods=['POST'])
 def serve():
@@ -49,57 +49,45 @@ def serve():
 # Go through the database and assemble a list of urls
 # rank them by weighted distance from search url
 def get_bubbles(url):
-    node_dict = {}
-    
-    # Put entries in the table from "right-hand" path
-    right_dist = 0
-    right_url = url
-    
-    # wDist is the weighted distance (accumulates edge weights)
-    def distance_dict(node, wDist=None):
-        wDist = 0 if wDist == None else wDist
-        for child in get_children(node):
-            wDist += (1.0 / child.count)
-            if !child.is_leaf:
-                for each in distance_dict(child, wDist):
-                    yield each
+  pass
+
+# wDist is the weighted distance (accumulates edge weights)
+def node_distances(node, wDist=0):
+    for child in get_children(node):
+        wDist += child.weight
+        if not child.is_leaf:
+            for each in node_distances(child, wDist):
+                yield each
         yield child.url, wDist
   
 def weighted_node_distances(rootNode):
-    distances = dict(distance_dict(rootNode))
+    rNode = Node(rootNode, 0)
+    distances = dict(node_distances(rNode))
     return demjson.encode(distances)
-
-# node Class
-class Node:
-    def __init__(self, url, count):
-        self.url = url
-        self.count = count
-            
-        def is_leaf(self):
-            return bool(get_children(self))
 
 # get the children of a node from its url
 def get_children(node):
       url = node.url
-                  
+                     
+      # Database layout is:
+      # id | from_url | to_url | count
+      
       # Populate children list
-      children = from_db('left', url).extend(from_db('right', url))
-      return children
+      # Get children from 'incoming' links
+      incoming = Connection.select(Connection.to_url == url)
+      left_children = [Node(n.url, n.count) for n in incoming]
+
+      # Get children from 'outgoing' links
+      outgoing = Connection.select(Connection.from_url == url)
+      right_children = [Node(n.url, n.count) for n in outgoing] 
       
-      
-def from_db(side, url)):
-      children = []
-      right = True if side == 'right' else False
-      thisUrl = Connection.from_url if right else Connection.to_url
-      while True:
-            try:
-                  nextCon = Connection.get(thisUrl == url)
-                  nextUrl = nextCon.to_url if right else nextCon.from_url
-                  if nextUrl in nodes:
-                        break
-                  url = nextUrl
-                  children.append(Node(url, nextCon.count))
-                  
-            except Connection.DoesNotExist:
-                  break
-      return children
+      return left_children + right_children
+ 
+# A node has a url and a weight
+class Node:
+    def __init__(self, url, count):
+        self.url = url
+        self.weight = (1.0 / count)
+            
+        def is_leaf(self):
+            return bool(get_children(self))
