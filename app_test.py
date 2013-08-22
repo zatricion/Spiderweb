@@ -6,22 +6,30 @@ import unittest
 import demjson
 
 class CloudTestCase(unittest.TestCase):
-
+    
     def setUp(self):
         Connection.create_table(fail_silently=True)
-
+        a = Connection(from_url='A', to_url='B', count = 2)
+        b = Connection(from_url='A', to_url='C', count = 9)
+        c = Connection(from_url='C', to_url='D', count = 1)
+        d = Connection(from_url='Q', to_url='A', count = 5)
+        e = Connection(from_url='N', to_url='P', count = 1)
+        f = Connection(from_url='P', to_url='X', count = 1)
+        a.save()
+        b.save()
+        c.save()
+        d.save()
+        e.save()
+        f.save()
+        
     def tearDown(self):
         q = Connection.delete()
-        q.execute()
+        #q.execute()
 
-    def test_clouds(self):
+    def test(self):
         tester = app.test_client(self)
-        
-        req = demjson.encode({"//en.wikipedia.org/wiki/Thuringia":[{"in_node":"//en.wikipedia.org/wiki/Wartburg","timestamp":1376896096967}],"//en.wikipedia.org/wiki/Wartburg":[{"in_node":"//en.wikipedia.org/wiki/Frederick_II,_Margrave_of_Meissen","timestamp":1376895634637}],"//en.wikipedia.org/wiki/Frederick_II,_Margrave_of_Meissen":[{"in_node":"//en.wikipedia.org/wiki/Elisabeth_of_Meissen","timestamp":1376895632684}],"//en.wikipedia.org/wiki/Elisabeth_of_Meissen":[{"in_node":"","timestamp":1376895596200}]})
-
-        response = tester.post('/add_mark', req)          
-
-        self.assertEqual(response.status_code, 200)
+        response = tester.post('/', data=dict(word='A'))
+        print response.data
 
 if __name__ == "__main__":
   unittest.main()

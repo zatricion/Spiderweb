@@ -49,24 +49,23 @@ def serve():
 # Go through the database and assemble a list of urls
 # rank them by weighted distance from search url
 def get_bubbles(url):
-  pass
+    pass
 
 # wDist is the weighted distance (accumulates edge weights)
-def node_distances(node, wDist=0):
-    for child in get_children(node):
+def node_distances(node, wDist, seen):
+    for child in get_children(node, seen):
         wDist += child.weight
-        if not child.is_leaf():
-            for each in node_distances(child, wDist):
-                yield each
+        for each in node_distances(child, wDist, seen):
+            yield each
         yield child.url, wDist
   
 def weighted_node_distances(rootNode):
     rNode = Node(rootNode, 1)
-    distances = dict(node_distances(rNode))
+    distances = dict(node_distances(rNode, wDist=0, seen=[]))
     return demjson.encode(distances)
 
-# get the children of a node from its url
-def get_children(node):
+# get the children of a node from its url (don't include already seen db entries)
+def get_children(node, seen):
       url = node.url
                      
       # Database layout is:
@@ -75,19 +74,23 @@ def get_children(node):
       # Populate children list
       # Get children from 'incoming' links
       incoming = Connection.select().where(Connection.to_url == url)
-      left_children = [Node(n.from_url, n.count) for n in incoming]
+      left_children = [Node(n.from_url, n.count) for n in incoming if n.id not in seen]
 
+      # Add seen ids to list
+      seen.extend(n.id for n in incoming if n.id not in seen)
+      
       # Get children from 'outgoing' links
       outgoing = Connection.select().where(Connection.from_url == url)
-      right_children = [Node(n.to_url, n.count) for n in outgoing] 
+      right_children = [Node(n.to_url, n.count) for n in outgoing if n.id not in seen]
       
-      return left_children + right_children
+      # Add seen ids to list
+      seen.extend(n.id for n in outgoing if n.id not in seen)
+
+      children = left_children + right_children
+      return children
  
 # A node has a url and a weight
 class Node:
     def __init__(self, url, count):
         self.url = url
         self.weight = (1.0 / count)
-        
-    def is_leaf(self):
-        return bool(get_children(self))
