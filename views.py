@@ -30,8 +30,13 @@ def bubbles():
     node_list = []
     for url in dists:
         node_list.append({'name': url, 'value': dists[url]})
-    print node_list
     return render_template('bubbles.html', node_list=demjson.encode(node_list))
+
+@app.route("/test", methods=['POST'])
+def bubbles():
+    req = request.form
+    word = req.get('word', None)
+    return weighted_node_distances(word) 
 
 @app.route("/add_mark", methods=['POST'])
 def serve():

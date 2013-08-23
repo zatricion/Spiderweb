@@ -28,13 +28,13 @@ class CloudTestCase(unittest.TestCase):
 
     def test(self):
         tester = app.test_client(self)
-        a_test = tester.post('/', data=dict(word='A'))
-        b_test = tester.post('/', data=dict(word='B'))
-        c_test = tester.post('/', data=dict(word='C'))
-        d_test = tester.post('/', data=dict(word='D'))
-        p_test = tester.post('/', data=dict(word='P'))
-        n_test = tester.post('/', data=dict(word='N'))
-        no_test = tester.post('/', data={})
+        a_test = tester.post('/test', data=dict(word='A'))
+        b_test = tester.post('/test', data=dict(word='B'))
+        c_test = tester.post('/test', data=dict(word='C'))
+        d_test = tester.post('/test', data=dict(word='D'))
+        p_test = tester.post('/test', data=dict(word='P'))
+        n_test = tester.post('/test', data=dict(word='N'))
+        no_test = tester.post('/test', data={})
 
         assert (a_test.data ==
            demjson.encode({"B":0.5,"C":0.1111111111111111,"D":1.1111111111111112,"Q":0.2}))
