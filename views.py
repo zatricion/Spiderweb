@@ -26,9 +26,12 @@ def home():
 def bubbles():
     req = request.form
     word = req.get('word', None)
-    node_list = weighted_node_distances(word)
-    return node_list
-    #return render_template('bubbles.html', nodes=node_list)
+    dists = weighted_node_distances(word)
+    node_list = []
+    for url in dists:
+        node_list.append({'name': url, 'value': dists[url]})
+    print node_list
+    return render_template('bubbles.html', node_list=demjson.encode(node_list))
 
 @app.route("/add_mark", methods=['POST'])
 def serve():
@@ -48,8 +51,10 @@ def serve():
 
 # Go through the database and assemble a list of urls
 # rank them by weighted distance from search url
-def get_bubbles(url):
-    pass
+def weighted_node_distances(rootNode):
+    rNode = Node(rootNode, 0)
+    distances = dict(get_distances(rNode, wDist=0, seen=[]))
+    return distances
 
 # wDist is the weighted distance (accumulates edge weights)
 def get_distances(node, wDist, seen):
@@ -58,11 +63,7 @@ def get_distances(node, wDist, seen):
         for each in get_distances(child, wDist, seen):
             yield each
         yield child.url, wDist + child.weight
-  
-def weighted_node_distances(rootNode):
-    rNode = Node(rootNode, 0)
-    distances = dict(get_distances(rNode, wDist=0, seen=[]))
-    return demjson.encode(distances)
+
 
 # get the children of a node from its url (don't include already seen db entries)
 def get_children(node, seen):
