@@ -33,7 +33,7 @@ def bubbles():
     return render_template('bubbles.html', node_list=demjson.encode(node_list))
 
 @app.route("/test", methods=['POST'])
-def bubbles():
+def test():
     req = request.form
     word = req.get('word', None)
     return weighted_node_distances(word) 
