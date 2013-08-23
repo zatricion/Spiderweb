@@ -36,7 +36,7 @@ def bubbles():
 def test():
     req = request.form
     word = req.get('word', None)
-    return weighted_node_distances(word) 
+    return demjson.encode(weighted_node_distances(word))
 
 @app.route("/add_mark", methods=['POST'])
 def serve():

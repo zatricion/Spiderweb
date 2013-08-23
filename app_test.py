@@ -5,7 +5,7 @@ import os
 import unittest
 import demjson
 
-class CloudTestCase(unittest.TestCase):
+class GraphTestCase(unittest.TestCase):
     
     def setUp(self):
         Connection.create_table(fail_silently=True)
