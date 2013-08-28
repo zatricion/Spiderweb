@@ -29,7 +29,7 @@ def bubbles():
     dists = weighted_node_distances(word)
     node_list = []
     for url in dists:
-        node_list.append({'name': url, 'value': dists[url]})
+        node_list.append({'name': url, 'value': 1.0 / dists[url]})
     return render_template('bubbles.html', node_list=demjson.encode(node_list))
 
 @app.route("/test", methods=['POST'])

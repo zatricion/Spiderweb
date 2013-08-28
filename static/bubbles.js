@@ -17,10 +17,10 @@
 
     bubbles.showGraph = function (nodes) {
 	var tree = {children: nodes};
-	console.log(bubble.nodes(tree));
+	console.log(tree);
 
 	var node = svg.selectAll(".node")
-	    .data(bubble.nodes(tree))
+	    .data(bubble.nodes(tree).filter(function(d) { return !d.children; }))
 	    .enter().append("g")
 	    .attr("class", "node")
 	    .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
