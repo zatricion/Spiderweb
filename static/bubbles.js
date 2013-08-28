@@ -1,7 +1,7 @@
 ;(function(exports) {
     var bubbles = {};
 
-    var diameter = 480,
+    var diameter = 960,
     format = d3.format(",d"),
     color = d3.scale.category20c();
 
