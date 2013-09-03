@@ -45,7 +45,7 @@
       // Parse url
       var a = document.createElement('a');
       a.href = url;
-      return a.hostname
+      return a.hostname.replace('^www.', '');
     };
 
     exports.bubbles = bubbles;
