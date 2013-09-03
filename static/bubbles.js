@@ -23,7 +23,8 @@
 	    .data(bubble.nodes(tree).filter(function(d) { return !d.children; }))
 	    .enter().append("g")
 	    .attr("class", "node")
-	    .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+	    .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
+            .on("click", function(d) { window.open(d.name, '_blank'); });
 
 	node.append("title")
 	    .text(function(d) { return d.name + ": " + format(d.value); });
