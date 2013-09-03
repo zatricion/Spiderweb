@@ -36,9 +36,16 @@
 	node.append("text")
 	    .attr("dy", ".3em")
 	    .style("text-anchor", "middle")
-	    .text(function(d) { return d.name.substring(0, d.r / 3); });
+	    .text(function(d) { return getDomain(d.name).substring(0, d.r / 3); });
 
 	d3.select(self.frameElement).style("height", diameter + "px");
+    };
+
+    var getDomain = function (url) {
+      // Parse url
+      var a = document.createElement('a');
+      a.href = url;
+      return a.hostname
     };
 
     exports.bubbles = bubbles;
