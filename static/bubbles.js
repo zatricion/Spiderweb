@@ -36,7 +36,7 @@
 	node.append("text")
 	    .attr("dy", ".3em")
 	    .style("text-anchor", "middle")
-	    .text(function(d) { return getDomain(d.name).substring(0, d.r / 3); });
+	    .text(function(d) { return getDomain(d.name).substring(0, d.r / 4); });
 
 	d3.select(self.frameElement).style("height", diameter + "px");
     };
