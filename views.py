@@ -26,6 +26,7 @@ def home():
 def bubbles():
     req = request.form
     word = req.get('word', None)
+    word = word.replace('http:', '')
     dists = weighted_node_distances(word)
     node_list = []
     for url in dists:
