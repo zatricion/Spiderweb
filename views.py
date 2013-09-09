@@ -9,6 +9,7 @@ from flask import Flask
 from flask import Response
 from flask import request
 from flask import render_template
+from flask import redirect
 from models import Connection
 
 from forms import SearchForm
@@ -20,7 +21,7 @@ def initialize():
 
 @app.route("/", methods=['GET'])
 def home():
-    return render_template('search.html', form=SearchForm())
+  return redirect("https://github.com/zatricion")
 
 @app.route("/path/<path:word>", methods=['GET'])
 def bubbles(word):
