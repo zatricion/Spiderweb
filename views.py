@@ -22,10 +22,8 @@ def initialize():
 def home():
     return render_template('search.html', form=SearchForm())
 
-@app.route("/", methods=['POST'])
-def bubbles():
-    req = request.form
-    word = req.get('word', None)
+@app.route("/path/<path:word>", methods=['GET'])
+def bubbles(word):
     word = word.replace('http:', '')
     dists = weighted_node_distances(word)
     node_list = []
