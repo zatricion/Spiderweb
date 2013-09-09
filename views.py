@@ -2,6 +2,7 @@
 views imports app, auth, and models, but none of these import views
 """
 import demjson
+import re
 
 from app import app
 
@@ -25,7 +26,7 @@ def home():
 
 @app.route("/path/<path:word>", methods=['GET'])
 def bubbles(word):
-    word = word.replace('http:', '')
+    word = re.sub(r"https?:", '', word)
     dists = weighted_node_distances(word)
     node_list = []
     for url in dists:
