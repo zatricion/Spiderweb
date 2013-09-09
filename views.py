@@ -30,7 +30,11 @@ def bubbles(word):
     for url in dists:
         if url and 'localhost' not in url:
             node_list.append({'name': url, 'value': 1.0 / dists[url]})
-    return render_template('bubbles.html', node_list=demjson.encode(node_list))
+    if node_list:
+      return render_template('bubbles.html', node_list=demjson.encode(node_list))
+    else:
+      return ("Sorry, but no Spiderweb has been created for this URL. "
+              + "Pathmark it and check again :)")
 
 @app.route("/test", methods=['POST'])
 def test():
