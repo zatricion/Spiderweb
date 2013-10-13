@@ -1,0 +1,10 @@
+box: wercker/python
+services:
+  - wercker/postgresql
+build:
+  steps:
+    - pip-install
+    - script:
+        name: graph test
+        code: python app_test.py
+
