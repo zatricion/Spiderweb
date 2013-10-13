@@ -11,3 +11,4 @@ class Connection(db.Model):
     from_url = CharField()  
     to_url = CharField()
     count = IntegerField()
+    project = CharField()
