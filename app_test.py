@@ -9,7 +9,7 @@ class GraphTestCase(unittest.TestCase):
     
     def setUp(self):
         Connection.create_table(fail_silently=True)
-        a = Connection(from_url='A', to_url='B', count = 2)
+        a = Connection(from_url='A', to_url='B', count = 2, project = '')
         b = Connection(from_url='A', to_url='C', count = 9)
         c = Connection(from_url='C', to_url='D', count = 1)
         d = Connection(from_url='Q', to_url='A', count = 5)
