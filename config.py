@@ -33,3 +33,8 @@ class Configuration(object):
         'engine': 'peewee.PostgresqlDatabase',
         }
   DEBUG = True
+  SOCIAL_GOOGLE  = {
+      'consumer_key': '591770024554-9occc8nfeqfoqtb3nhd3jlmelf8qdub1.apps.googleusercontent.com',
+      'consumer_secret': 'nfQ_idtD9zgCteFQsYh2fz9T',
+      }
+  SECURITY_POST_LOGIN = '/profile'

@@ -20,6 +20,13 @@ from forms import SearchForm
 def initialize():
   Connection.create_table(fail_silently=True)
 
+@app.route('/profile')
+@login_required
+def profile():
+  return render_template('profile.html',
+      content='Profile Page',
+      google_conn=social.google.get_connection())
+
 @app.route("/", methods=['GET'])
 def home():
   return redirect("https://github.com/zatricion/Spiderweb")
