@@ -44,16 +44,16 @@ def test():
     word = req.get('word', None)
     return demjson.encode(weighted_node_distances(word))
 
-@app.route("/add_mark", methods=['POST'])
-def serve():
+@app.route("/add_mark/<project>", methods=['POST'])
+def serve(project):
     link_dict = demjson.decode(request.stream.read())
     for to_url in link_dict:
         from_url = link_dict[to_url][0]['in_node']
         try:
-            r = Connection.get(Connection.from_url == from_url, Connection.to_url == to_url)
+            r = Connection.get(Connection.from_url == from_url, Connection.to_url == to_url, Connection.project == project)
             r.count += 1
         except Connection.DoesNotExist:
-            r = Connection(from_url = from_url, to_url = to_url, count = 1)
+            r = Connection(from_url = from_url, to_url = to_url, project = project, count = 1)
             r.save()
             resp = Response(status=200, mimetype='application/json')
     return resp
@@ -81,7 +81,7 @@ def get_children(node, seen):
       url = node.url
                      
       # Database layout is:
-      # id | from_url | to_url | count
+      # id | from_url | to_url | count | uuid
       
       # Populate children list
       # Get children from 'incoming' links
