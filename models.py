@@ -16,15 +16,12 @@ class Connection(db.Model):
     count = IntegerField()
     project = CharField()
 
-
-db = Database(app)
-
 class Role(db.Model, RoleMixin):
     name = TextField(unique=True)
     description = TextField(null=True)
 
 class User(db.Model, UserMixin):
-    email = TextField()
+    email = TextField(null=True)
     password = TextField()
     active = BooleanField(default=True)
     confirmed_at = DateTimeField(null=True)
@@ -39,15 +36,15 @@ class UserRoles(db.Model):
     description = property(lambda self: self.role.description)
 
 class Google(db.Model):
-    user_id = ForeignKeyField(User, related_name = 'user_id')
-    provider_id = CharField()
-    provider_user_id = CharField()
-    access_token = CharField()
-    secret = CharField()
-    display_name = CharField() 
-    profile_url = CharField()
-    image_url = CharField()
-    rank = IntegerField()
+    user = ForeignKeyField(User, related_name = 'user_id')
+    provider_id = CharField(null=True)
+    provider_user_id = CharField(null=True)
+    access_token = CharField(null=True)
+    secret = CharField(null=True)
+    display_name = CharField(null=True) 
+    profile_url = CharField(null=True)
+    image_url = CharField(null=True)
+    rank = IntegerField(null=True)
 
-security = Security(app, PeeweeUserDatastore(db, User, Role, UserRoles))
-social = Social(app, PeeweeConnectionDatastore(db, Google))
+app.security = Security(app, PeeweeUserDatastore(db, User, Role, UserRoles))
+app.social = Social(app, PeeweeConnectionDatastore(db, Google))

@@ -5,31 +5,26 @@ import demjson
 import re
 
 from app import app
+from models import User
+from forms import RegisterForm
 
-from flask import Flask
-from flask import Response
-from flask import request
-from flask import render_template
-from flask import redirect
-from models import Connection
+from flask import render_template, redirect, request, current_app, session, \
+    flash, url_for
 
-from forms import SearchForm
+from flask.ext.security import current_user, login_required, login_user
 
-# Set up Connection table
-@app.before_first_request
-def initialize():
-  Connection.create_table(fail_silently=True)
+from flask.ext.social.utils import get_provider_or_404
+from flask.ext.social.views import connect_handler
 
-@app.route('/profile')
+
+@app.route('/')
+def index():
+    return render_template('index.html', )
+
+@app.route("/profile", methods=['GET'])
 @login_required
 def profile():
-  return render_template('profile.html',
-      content='Profile Page',
-      google_conn=social.google.get_connection())
-
-@app.route("/", methods=['GET'])
-def home():
-  return redirect("https://github.com/zatricion/Spiderweb")
+    return render_template('profile.html')
 
 @app.route("/path/<path:word>", methods=['GET'])
 def bubbles(word):

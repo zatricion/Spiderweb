@@ -26,15 +26,24 @@ class Configuration(object):
         'host': url.hostname,
         'port': url.port,
         }
+    SOCIAL_GOOGLE  = {
+        'consumer_key': '591770024554-9occc8nfeqfoqtb3nhd3jlmelf8qdub1.apps.googleusercontent.com',
+        'consumer_secret': 'nfQ_idtD9zgCteFQsYh2fz9T',
+      }
+    SECURITY_POST_LOGIN = '/profile'
+    SECURITY_LOGIN_USER_TEMPLATE = 'login.html'
 
   else:
     DATABASE = {
         'name': 'spiderweb',
         'engine': 'peewee.PostgresqlDatabase',
         }
-  DEBUG = True
-  SOCIAL_GOOGLE  = {
-      'consumer_key': '591770024554-9occc8nfeqfoqtb3nhd3jlmelf8qdub1.apps.googleusercontent.com',
-      'consumer_secret': 'nfQ_idtD9zgCteFQsYh2fz9T',
+
+    SOCIAL_GOOGLE  = {
+      'consumer_key': '591770024554-tptv9na71imv0rp9lmlei1n08gj1u7u6.apps.googleusercontent.com',
+      'consumer_secret': 'lYb5QHBVrnoagQQ3TtTXUjkA',
       }
-  SECURITY_POST_LOGIN = '/profile'
+    SECURITY_POST_LOGIN = '/profile'
+    SECURITY_LOGIN_USER_TEMPLATE = 'login.html'
+    DEBUG = True
+ 
