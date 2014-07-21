@@ -29,11 +29,6 @@ def initialize():
 def index():
     return render_template('login.html')
 
-@app.route('/login/google/<code>')
-def login(code):
-    print code
-    return render_template('profile.html')
-
 @app.route("/profile", methods=['GET'])
 @login_required
 def profile():
