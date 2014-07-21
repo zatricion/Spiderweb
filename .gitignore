@@ -1,0 +1,7 @@
+.Python
+.wercker
+venv
+*.pyc
+*.swp
+.*.swo
+.*.swp
