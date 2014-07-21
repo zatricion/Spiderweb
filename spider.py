@@ -28,7 +28,7 @@ def initialize():
 def on_login_failed(sender, provider, oauth_response): 
   connection_values = get_connection_values_from_oauth_response(provider, oauth_response) 
   if not connection_values: 
-    raise Exception() # TODO 
+    raise Exception # TODO 
   
   ds = current_app.security.datastore 
   user = ds.create_user( 
