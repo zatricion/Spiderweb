@@ -27,7 +27,11 @@ def initialize():
 
 @app.route('/')
 def index():
-    return render_template('login.html', )
+    return render_template('login.html')
+
+@app.route('/login/google')
+def login():
+    return render_template('profile.html')
 
 @app.route("/profile", methods=['GET'])
 @login_required
