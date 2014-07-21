@@ -8,13 +8,21 @@ from app import app
 from models import User
 from forms import RegisterForm
 
-from flask import render_template, redirect, request, current_app, session, \
-    flash, url_for
+from flask import current_app, session, flash, url_for
+from flask import Flask
+from flask import Response
+from flask import request
+from flask import render_template
+from flask import redirect
+from models import Connection
 
 from flask.ext.security import current_user, login_required, login_user
+from forms import SearchForm
 
-from flask.ext.social.utils import get_provider_or_404
-from flask.ext.social.views import connect_handler
+# Set up Connection table
+@app.before_first_request
+def initialize():
+  Connection.create_table(fail_silently=True)
 
 
 @app.route('/')
