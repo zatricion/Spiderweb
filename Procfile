@@ -1,1 +1,1 @@
-web: gunicorn spider:app
+web: python spider.py
