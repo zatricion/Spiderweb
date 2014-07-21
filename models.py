@@ -15,6 +15,7 @@ class Connection(db.Model):
     to_url = CharField()
     count = IntegerField()
     project = CharField()
+    user = CharField()
 
 class Role(db.Model, RoleMixin):
     name = TextField(unique=True)

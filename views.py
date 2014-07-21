@@ -5,7 +5,6 @@ import demjson
 import re
 
 from app import app
-from models import User
 from forms import RegisterForm
 
 from flask import current_app, session, flash, url_for
@@ -14,7 +13,7 @@ from flask import Response
 from flask import request
 from flask import render_template
 from flask import redirect
-from models import Connection
+from models import *
 
 from flask.ext.security import current_user, login_required, login_user
 from forms import SearchForm
@@ -54,16 +53,23 @@ def test():
     word = req.get('word', None)
     return demjson.encode(weighted_node_distances(word))
 
-@app.route("/add_mark/<project>", methods=['POST'])
+@app.route("/add_mark/<user>/<project>", methods=['POST'])
 def serve(project):
     link_dict = demjson.decode(request.stream.read())
     for to_url in link_dict:
         from_url = link_dict[to_url][0]['in_node']
         try:
-            r = Connection.get(Connection.from_url == from_url, Connection.to_url == to_url, Connection.project == project)
+            r = Connection.get(Connection.from_url == from_url, 
+                               Connection.to_url == to_url, 
+                               Connection.project == project,  
+                               Connection.user == user)
             r.count += 1
         except Connection.DoesNotExist:
-            r = Connection(from_url = from_url, to_url = to_url, project = project, count = 1)
+            r = Connection(from_url = from_url, 
+                           to_url = to_url, 
+                           project = project,
+                           user = user, 
+                           count = 1)
             r.save()
             resp = Response(status=200, mimetype='application/json')
     return resp
