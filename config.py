@@ -33,6 +33,7 @@ class Configuration(object):
     SECURITY_POST_LOGIN_VIEW = '/profile'
     SECURITY_LOGIN_USER_TEMPLATE = 'login.html'
     SOCIAL_APP_URL =  'http://spiderweb.herokuapp.com'
+    DEBUG = True
 
   else:
     DATABASE = {
