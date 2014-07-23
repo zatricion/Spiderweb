@@ -88,6 +88,7 @@ var helper = (function() {
         // There was an error, which means the user is not signed in.
         // As an example, you can troubleshoot by writing to the console:
         console.log('There was an error: ' + authResult['error']);
+        console.log(authResult);
         $('#authOps').hide('slow');
         $('#gConnect').show();
       }
