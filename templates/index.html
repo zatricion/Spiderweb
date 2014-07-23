@@ -63,6 +63,7 @@
 <script type="text/javascript">
 var helper = (function() {
   var authResult = undefined;
+  var signed_in = false;
 
   return {
     /**
@@ -71,20 +72,20 @@ var helper = (function() {
      *
      * @param {Object} authResult An Object which contains the access token and
      *   other authentication information.
-     */
+     */ 
     onSignInCallback: function(authResult) {
+      if (signed_in) { return }
       if (authResult['access_token']) {
+        signed_in = true;
         // The user is signed in
         this.authResult = authResult;
         helper.connectServer();
-        console.log(authResult);
         // After we load the Google+ API, render the profile data from Google+.
         gapi.client.load('plus','v1',this.renderProfile);
       } else if (authResult['error']) {
         // There was an error, which means the user is not signed in.
         // As an example, you can troubleshoot by writing to the console:
         console.log('There was an error: ' + authResult['error']);
-        console.log(authResult);
         $('#authOps').hide('slow');
         $('#gConnect').show();
       }
@@ -123,6 +124,7 @@ var helper = (function() {
         url: window.location.href + 'disconnect',
         async: false,
         success: function(result) {
+          signed_in = false;
           console.log('revoke response: ' + result);
           $('#authOps').hide();
           $('#profile').empty();
