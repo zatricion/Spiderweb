@@ -157,14 +157,14 @@ def people():
         # refresh token
         if credentials.refresh_token:
             try:
-                tok = Tokens.get(Tokens.acct == credentials.id_token)
+                tok = Tokens.get(Tokens.acct == credentials.id_token.sub)
                 tok.refresh_token = credentials.refresh_token
             except Tokens.DoesNotExist:
                 tok = Tokens(acct = credentials.id_token,
                              refresh_token = credentials.refresh_token)
             tok.save()
         else:
-            tok = Tokens.get(Tokens.acct == credentials.id_token)
+            tok = Tokens.get(Tokens.acct == credentials.id_token.sub)
             credentials.refresh_token = tok.refresh_token
                 
         credentials.refresh(httplib2.Http())
