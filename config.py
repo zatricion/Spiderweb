@@ -30,9 +30,6 @@ class Configuration(object):
         'consumer_key': '591770024554-9occc8nfeqfoqtb3nhd3jlmelf8qdub1.apps.googleusercontent.com',
         'consumer_secret': 'nfQ_idtD9zgCteFQsYh2fz9T',
       }
-    SECURITY_POST_LOGIN_VIEW = '/profile'
-    SECURITY_LOGIN_USER_TEMPLATE = 'login.html'
-    SOCIAL_APP_URL =  'http://spiderweb.herokuapp.com'
     DEBUG = True
 
   else:
@@ -45,7 +42,6 @@ class Configuration(object):
       'consumer_key': '591770024554-tptv9na71imv0rp9lmlei1n08gj1u7u6.apps.googleusercontent.com',
       'consumer_secret': 'lYb5QHBVrnoagQQ3TtTXUjkA',
       }
-    SECURITY_POST_LOGIN_VIEW = '/profile'
-    SECURITY_LOGIN_USER_TEMPLATE = 'login.html'
+
     DEBUG = True
  
