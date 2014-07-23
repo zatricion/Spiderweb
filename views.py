@@ -160,7 +160,7 @@ def people():
                 tok = Tokens.get(Tokens.acct == credentials.id_token['sub'])
                 tok.refresh_token = credentials.refresh_token
             except Tokens.DoesNotExist:
-                tok = Tokens(acct = credentials.id_token,
+                tok = Tokens(acct = credentials.id_token['sub'],
                              refresh_token = credentials.refresh_token)
             tok.save()
         else:
