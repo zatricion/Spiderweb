@@ -48,17 +48,12 @@
     </button>
   </div>
   <div id="authOps" style="display:none">
-    <h2>User is now signed in to the app using Google+</h2>
-    <p>If the user chooses to disconnect, the app must delete all stored
-    information retrieved from Google for the given user.</p>
     <button id="disconnect" >Disconnect your Google account from this app</button>
 
     <h2>User's profile information</h2>
-    <p>This data is retrieved client-side by using the Google JavaScript API
-    client library.</p>
     <div id="profile"></div>
 
-    <h2>User's friends that are visible to this app</h2>
+    <h2>Contacts who have Pathmarks saved</h2>
     <div id="contacts">
         <ul class="friend_list">
         </ul> 
@@ -82,6 +77,7 @@ var helper = (function() {
         // The user is signed in
         this.authResult = authResult;
         helper.connectServer();
+        console.log(authResult);
         // After we load the Google+ API, render the profile data from Google+.
         gapi.client.load('plus','v1',this.renderProfile);
       } else if (authResult['error']) {
@@ -146,7 +142,6 @@ var helper = (function() {
      *   https://developers.google.com/+/web/signin/server-side-flow
      */
     connectServer: function() {
-      console.log(this.authResult.code);
       $.ajax({
         type: 'POST',
         url: window.location.href + 'connect?state={{ STATE }}',
