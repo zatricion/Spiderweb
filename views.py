@@ -51,18 +51,11 @@ def initialize():
 
 @app.route('/')
 def index():
-    """Initialize a session for the current user, and render index.html."""
-    # Create a state token to prevent request forgery.
-    # Store it in the session for later validation.
-    state = ''.join(random.choice(string.ascii_uppercase + string.digits)
-                  for x in xrange(32))
-    session['state'] = state
-    # Set the Client ID, Token State, and Application Name in the HTML while
+    # Set the Client ID and Application Name in the HTML while
     # serving it.
     response = make_response(
       render_template('index.html',
                       CLIENT_ID=CLIENT_ID,
-                      STATE=state,
                       APPLICATION_NAME=APPLICATION_NAME))
     response.headers['Content-Type'] = 'text/html'
     return response
@@ -71,12 +64,6 @@ def index():
 def connect():
     """Exchange the one-time authorization code for a token and
     store the token in the session."""
-    # Ensure that the request is not a forgery and that the user sending
-    # this connect request is the expected user.
-    if request.args.get('state', '') != session['state']:
-        response = make_response(json.dumps('Invalid state parameter.'), 401)
-        response.headers['Content-Type'] = 'application/json'
-        return response
     code = request.data
     
     try:
