@@ -15,5 +15,5 @@ class Connection(db.Model):
     email = CharField()
 
 class Tokens(db.Model):
-    acct = CharField()  
-    refresh_token = CharField()
+    acct = TextField()  
+    refresh_token = TextField()
