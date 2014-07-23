@@ -156,7 +156,7 @@ def people():
         
         # refresh token
         print dir(credentials)
-        credentials.refresh_token()
+        credentials.refresh()
         client.auth_token = OAuthCred2Token(credentials.access_token)
 
         query = gdata.contacts.client.ContactsQuery()
