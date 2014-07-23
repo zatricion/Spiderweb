@@ -13,3 +13,7 @@ class Connection(db.Model):
     count = IntegerField()
     project = CharField()
     email = CharField()
+
+class Tokens(db.Model):
+    acct = CharField()  
+    refresh_token = CharField()
