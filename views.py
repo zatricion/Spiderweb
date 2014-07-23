@@ -206,7 +206,7 @@ def bubbles(word):
               + "Pathmark it and check again :)")
 
 @app.route("/add_mark/<email>/<project>", methods=['POST'])
-def serve(user, project):
+def serve(email, project):
     link_dict = demjson.decode(request.stream.read())
     for to_url in link_dict:
         from_url = link_dict[to_url][0]['in_node']
