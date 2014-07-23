@@ -155,6 +155,7 @@ def people():
         client = gdata.contacts.client.ContactsClient(source='Spiderweb')
         
         # refresh token
+        dir(credentials)
         credentials.refresh_token()
         client.auth_token = OAuthCred2Token(credentials.access_token)
 
