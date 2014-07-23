@@ -155,8 +155,18 @@ def people():
         client = gdata.contacts.client.ContactsClient(source='Spiderweb')
         
         # refresh token
-        print dir(credentials)
-        print credentials.refresh_token
+        if credentials.refresh_token:
+            try:
+                tok = Tokens.get(Tokens.acct == credentials.id_token)
+                tok.refresh_token = credentials.refresh_token
+            except Tokens.DoesNotExist:
+                tok = Tokens(acct = credentials.id_token,
+                             refresh_token = credentials.refresh_token)
+            tok.save()
+        else:
+            tok = Tokens.get(Tokens.acct == credentials.id_token)
+            credentials.refresh_token = tok.refresh_token
+                
         credentials.refresh(httplib2.Http())
         client.auth_token = OAuthCred2Token(credentials.access_token)
 
@@ -228,8 +238,8 @@ def serve(email, project):
                            project = project,
                            email = email, 
                            count = 1)
-            r.save()
-            resp = Response(status=200, mimetype='application/json')
+        r.save()
+        resp = Response(status=200, mimetype='application/json')
     return resp
 
 # Helper Functions
