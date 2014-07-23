@@ -8,6 +8,8 @@
     </head>
 
     <script>
-        visualize({{ pathmark | safe }});
+        (function () {
+            visualize({{ pathmark | safe }});
+        })();
     </script>
 </html>

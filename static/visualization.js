@@ -85,7 +85,7 @@ var onWindowResize = function (event) {
   height = window.innerHeight;
   overlay.width = width;
   overlay.height = height;
-  overlayContext.fillStyle = 'rgba( 0, 0, 0, 0.7 )';
+  overlayContext.fillStyle = 'rgba( 0, 0, 0, 1 )';
   overlayContext.fillRect( 0, 0, overlay.width, overlay.height );
 }
 
