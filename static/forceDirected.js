@@ -142,14 +142,7 @@
       // Click only if not dragging
       if(!d3.event.defaultPrevented) {
         var url = tooltip.text();
-
-        // Compatibility
-        var runtimeOrExtension = chrome.runtime && chrome.runtime.sendMessage ? 'runtime' : 'extension';
-
-        chrome[runtimeOrExtension].sendMessage({
-          message_type: "newtab",
-          url: url
-        });
+        window.open(url, '_blank');
 
       }
     }
