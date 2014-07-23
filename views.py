@@ -154,6 +154,9 @@ def people():
     try:
         client = gdata.contacts.client.ContactsClient(source='Spiderweb')
         client.auth_token = OAuthCred2Token(credentials.access_token)
+        
+        # refresh token
+        client.refresh_token()
         query = gdata.contacts.client.ContactsQuery()
         query.max_results = 50000
         feed = client.GetContacts(q=query)

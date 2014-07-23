@@ -5,10 +5,6 @@ from app import app
 from models import * 
 from views import *
 
-from flask.ext.social import login_failed
-from flask.ext.social.views import connect_handler
-from flask.ext.social.utils import get_connection_values_from_oauth_response
-
 @app.before_first_request
 def initialize():
   Connection.create_table(fail_silently=True)
