@@ -50,10 +50,9 @@
   <div id="authOps" style="display:none">
     <button id="disconnect" >Disconnect your Google account from this app</button>
 
-    <h2>User's profile information</h2>
     <div id="profile"></div>
 
-    <h2>Contacts who have Pathmarks saved</h2>
+    <h2>Click on a contact to see their projects</h2>
     <div id="contacts">
         <ul class="friend_list">
         </ul> 
@@ -103,8 +102,7 @@ var helper = (function() {
           $('#profile').append(
               $('<p><img src=\"' + profile.image.url + '\"></p>'));
           $('#profile').append(
-              $('<p>Hello ' + profile.displayName + '!<br />Tagline: ' +
-              profile.tagline + '<br />About: ' + profile.aboutMe + '</p>'));
+              $('<p>Hello ' + profile.displayName + '</p>'));
           if (profile.cover && profile.coverPhoto) {
             $('#profile').append(
                 $('<p><img src=\"' + profile.cover.coverPhoto.url + '\"></p>'));
