@@ -22,8 +22,6 @@ from flask import render_template
 from flask import redirect
 from models import *
 
-from forms import SearchForm
-from forms import RegisterForm
 from oauth2client.client import AccessTokenRefreshError
 from oauth2client.client import flow_from_clientsecrets
 from oauth2client.client import FlowExchangeError
@@ -40,9 +38,8 @@ KVSessionExtension(store, app)
 # Update client_secrets.json with your Google API project information.
 # Do not change this assignment.
 CLIENT_ID = json.loads(
-    open('client_secrets_heroku.json', 'r').read())['web']['client_id']
+    open('client_secrets.json', 'r').read())['web']['client_id']
 SERVICE = build('plus', 'v1')
-APPLICATION_NAME = 'Spiderweb'
 
 # Set up Connection table
 @app.before_first_request
@@ -61,9 +58,9 @@ def index():
     # serving it.
     response = make_response(
       render_template('index.html',
+                      title = "Spiderweb | a place for pathmarks",
                       CLIENT_ID=CLIENT_ID,
-                      STATE=state,
-                      APPLICATION_NAME=APPLICATION_NAME))
+                      STATE=state))
     response.headers['Content-Type'] = 'text/html'
     return response
 
@@ -81,7 +78,7 @@ def connect():
     
     try:
         # Upgrade the authorization code into a credentials object
-        oauth_flow = flow_from_clientsecrets('client_secrets_heroku.json', scope='')
+        oauth_flow = flow_from_clientsecrets('client_secrets.json', scope='')
         oauth_flow.redirect_uri = 'postmessage'
         credentials = oauth_flow.step2_exchange(code)
     except FlowExchangeError:
@@ -164,8 +161,11 @@ def people():
                              refresh_token = credentials.refresh_token)
             tok.save()
         else:
-            tok = Tokens.get(Tokens.acct == credentials.id_token['sub'])
-            credentials.refresh_token = tok.refresh_token
+            try:
+                tok = Tokens.get(Tokens.acct == credentials.id_token['sub'])
+                credentials.refresh_token = tok.refresh_token
+            except Tokens.DoesNotExist:
+                return
                 
         credentials.refresh(httplib2.Http())
         client.auth_token = OAuthCred2Token(credentials.access_token)
@@ -185,10 +185,8 @@ def people():
                 q = Connection.select().where(Connection.email == email.address).limit(1)
                 if [ans for ans in q]:
                     result.append((name, email.address))
-        
-        response = make_response(json.dumps(result), 200)
-        response.headers['Content-Type'] = 'application/json'
-        return response
+        print result
+        return render_template('main.html', people = result)
     except AccessTokenRefreshError:
         response = make_response(json.dumps('Failed to refresh access token.'), 500)
         response.headers['Content-Type'] = 'application/json'
@@ -205,7 +203,7 @@ def show_projects(email):
 def view_project(email, name):
     q = Connection.select().where(Connection.email == email)\
                            .where(Connection.project == name)
-    return render_template('visualize.html', pathmark = [[str(mark.from_url), str(mark.to_url)] for mark in q])
+    return render_template('visualize.html', pathmark = [list(str(mark.from_url), str(mark.to_url)) for mark in q])
 
 @app.route("/path/<path:word>", methods=['GET'])
 def bubbles(word):

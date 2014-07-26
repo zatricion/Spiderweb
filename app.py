@@ -1,7 +1,9 @@
 from flask import Flask
+from flask.ext.foundation import Foundation
 import os
 
 app = Flask(__name__)
+Foundation(app)
 
 # flask-peewee database, but could be SQLAlchemy instead.
 from flask_peewee.db import Database
