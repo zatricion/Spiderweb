@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+{% block html %}
+  <head>
+    {% block head %}
+    
+    <title>{% block title %}{{title}}{% endblock %}</title>
+    {% block meta %}
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% endblock %}
+    <link rel="stylesheet" href="{{ url_for('style.static', filename='app.css') }}" />
+    <script src="{{ url_for('bower.static', filename='modernizr/modernizr.js') }}"></script>
+    
+    {% block foundation_html5_shim %}
+    <!-- IE Fix for HTML5 Tags -->
+    <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    {% endblock %}
+
+    {% endblock %}
+  </head>
+  <body>
+  {% block body %}
+    {% block body_content %}
+    {% endblock %}
+
+    {% block foundation_js_bottom %}
+    <script src="{{ url_for('bower.static', filename='jquery/dist/jquery.min.js') }}"></script>
+    <script src="{{ url_for('bower.static', filename='foundation/js/foundation.min.js') }}"></script>
+    <script src="{{ url_for('js.static', filename='app.js') }}"></script>
+    {% endblock %}
+    
+    {% block scripts %}
+    {% endblock %}
+  {% endblock %}
+  </body>
+{% endblock %}
+</html>

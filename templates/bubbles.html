@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title> Spiderweb </title>
+  </head>
+
+  <body>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='bubbles.js') }}"></script>
+    <script type=text/javascript>
+      (function() {
+        var nodes = {{ node_list|safe }};
+        bubbles.showGraph(nodes);
+      }());
+    </script>
+  </body>
+</html>

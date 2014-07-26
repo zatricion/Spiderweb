@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js" ></script>
+        <script src="http://d3js.org/d3.v3.min.js"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='forceDirected.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='visualization.js') }}"></script>
+    </head>
+
+    <script>
+        (function () {
+            visualize({{ pathmark | safe }});
+        })();
+    </script>
+</html>
